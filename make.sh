@@ -1,3 +1,4 @@
 #!/bin/bash
+echo `date`" Running openscad"
 openscad -o TowerOfLetters.stl TowerOfLetters.scad
-#~/.cabal/bin/extopenscad TowerOfLetters.scad
+ecgi `date`" Done"

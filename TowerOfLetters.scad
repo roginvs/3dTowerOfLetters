@@ -51,7 +51,6 @@ module wrap_text() {
 };
 
 module create_text() { 
-  echo ("Creating text in line");
   render() 
   translate([text_backplane_deep,0,0])
   union() {    
