@@ -7,6 +7,7 @@ text_roof_up = 1;
 text_roof_down = 0.5;
 text_r = 50;
 
+stand_height = 10;
 
 $fn=10;
 
@@ -16,10 +17,13 @@ _piece_len = 2*PI*text_r/_pieces_per_circle;
 _piece_count = floor(_text_x / _piece_len);
 _piece_rotate = 360/_pieces_per_circle;
 _layers_count = floor(_text_x / (2*PI*text_r));
-_render_text=true; //For debug
+_render_text=false; //For debug
+_stand_picture_deep = 1;
 echo("Text layers: ", _layers_count);
 echo("Text total height: ",_layers_count * text_height); 
 module wrap_text() {
+  echo ("Wrapping text");
+  translate([0,0,stand_height])
   intersection() {
     translate([-text_r,-text_r,0])
     cube([2*text_r,2*text_r,_layers_count*text_height]);
@@ -48,11 +52,12 @@ module wrap_text() {
 };
 
 module create_text() { 
+  echo ("Creating text in line");
   render() 
-  //union() {
+  union() {
     cube([text_backplane_deep,_text_x,text_height]);
     translate([text_backplane_deep,0,0])
-//    union() {    
+    union() {    
       if (_render_text) { 
       rotate (90,[0,1,0])
       linear_extrude(height = text_total_deep-text_backplane_deep) {
@@ -63,10 +68,29 @@ module create_text() {
       };
       translate([0,0,text_height - text_roof_up - text_roof_down])
       cube([text_total_deep,_text_x,text_roof_up + text_roof_down]);
-   // };
-  //};
+    };
+  };
 };
 
-// wrap_text()
-translate([0,-_text_x,0]) // For debug 
-create_text();
+module create_stand() {
+  echo ("Creating stand");
+  difference() {
+    translate([0,0,stand_height/2])
+    cylinder(h = stand_height, 
+     r1 = text_r, r2 = text_r, center = true);
+    
+    translate([0,0,stand_height-_stand_picture_deep])
+    mirror([0,0,1])
+    scale([0.15,0.15,0.1*_stand_picture_deep])  // 0.15 because of png file    
+    surface(file="stand.png", center=true,
+    invert=true);
+  }
+}
+
+union() {
+  create_stand();
+    
+  wrap_text()
+    create_text();
+}
+   
