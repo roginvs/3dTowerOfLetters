@@ -3,7 +3,7 @@ const vectorizeText = require("vectorize-text");
 const cad = require('jscad');
 
 var Canvas = require('canvas');
-var canvas = new Canvas(1000, 1000);
+var canvas = new Canvas(1000, 1000); //TODO: What will happen if not enought?
 var ctx = canvas.getContext('2d');
 
 let complex = vectorizeText("Hello Мир", {

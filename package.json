@@ -1,0 +1,24 @@
+{
+  "name": "tower-of-letters",
+  "version": "1.0.0",
+  "description": "Openscad file for generating 3d (stl) model of pencil holder with letters wrapped around. Was inspired by 'Tower of Pi' from Thingiverse",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roginvs/3dTowerOfLetters.git"
+  },
+  "author": "",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/roginvs/3dTowerOfLetters/issues"
+  },
+  "homepage": "https://github.com/roginvs/3dTowerOfLetters#readme",
+  "dependencies": {
+    "canvas": "^1.4.0",
+    "jscad": "^1.1.0",
+    "vectorize-text": "^3.0.2"
+  }
+}
