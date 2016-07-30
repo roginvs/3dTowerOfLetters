@@ -2,11 +2,13 @@
 const vectorizeText = require("vectorize-text");
 const cad = require('jscad');
 
+const text = 'ПРИШЛО ВРЕМЯ ПЕРЕУСТАНАВЛИВАТЬ ШINDOWS ШINDOWS САМ НЕ ПЕРЕУСТАНОВИТСЯ ПЕРЕУСТАНОВИ ЕГО ПЕРЕУСТАНОВИ ЕГО ЕЩЕ РАЗ ЗАЧЕМ МНЕ НУЖЕН LINUX У МЕНЯ НЕТ ВРЕМЕНИ ЧТОБЫ ЕБАТЬСЯ С НИМ ЛУЧШЕ ЕЩЕ РАЗ ПЕРЕУСТАНОВИТЬ ШINDOWS Я ПЕРЕУСТАНАВЛИВАЮ ШINDOWS ПО 3 РАЗА В ДЕНЬ КАЖДАЯ ПЕРЕУСТАНОВКА ЗАНИМАЕТ ДВАДЦАДЬ МИНУТ Я ЖИВУ АКТИВНОЙ И ПОЛНОЦЕННОЙ ЖИЗНЬЮ Я УСПЕШЕН И ПОЭТОМУ ЦЕЛЫЙ ДЕНЬ ИГРАЮ В ИГРЫ А ПОСЛЕ ЭТОГО ПЕРЕУСТАНАВЛИВАЮ ШINDOWS ТУПЫЕ ЛИНУКСОИДЫ ОДЕРЖИМЫ КОМПИЛЯЦИЕЙ ВЕДРА А Я СВОБОДНЫЙ ОТ ЗАДРОТСТВО ЧЕЛОВЕК СКОЧАТЬ БЕЗПЛАТНО И БЕЗ РЕГИСТРАЦИИ МОКРЫЕ ПИСЕЧКИ КРЯК УЛЬТИМАТ КЕЙГЕН РАЗБЛОКИРУЙ ВЕНДУ ЛУЧШЕ Я ПЕРЕУСТАНОВЛЮ ЕЩЕ РАЗ ШINDOWS И КРЯКНУ ЕЕ, СТАБИЛЬНОСТЬ НЕ НУЖНАЯ НЕ ПЕРЕУСТАНАВЛИВАЛ ШINDOWS НЕДЕЛЮ ПОЙДУ ПЕРЕУСТАНОВЛЮ В ШINDOWSE ВСЕ ПРОСТО И ПОНЯТНО ААААААААААА ОШИБКА STOP 0x00000001 ЭТО ЖЕ ОЧЕВИДНО КАК ЕЕ РЕШИТЬ ПРИШЛО ВРЕМЯ ПЕРЕУСТАНАВИТЬ ШINDOWS ККОКОКОКОКОКОКО ЖМУ/ПИНУС ШВАБОДКА ПИТУХИ КОКОКОКОКОКОКО КОКОКОКОКОКОКО';
+
 var Canvas = require('canvas');
 var canvas = new Canvas(1000, 1000); //TODO: What will happen if not enought?
 var ctx = canvas.getContext('2d');
 
-let complex = vectorizeText("Hello Мир", {
+let complex = vectorizeText(text, {
 //  textBaseline: "hanging",
     triangles: true,
 canvas:canvas,
@@ -19,7 +21,7 @@ textBaseline: "hanging",
 
 //console.info(complex);
 let polygons = [];
-let size = 100;
+let size = 10;
 for (let c of complex.cells) {
     polygons.push(
             [[-1 * complex.positions[c[0]][0]*size,complex.positions[c[0]][1]*size],
@@ -47,10 +49,15 @@ for (let p of complex.positions) {
     }
 };
 console.info(min_x,min_y,max_x,max_y);
-cad.renderFile(
-        union(polygons.map((poly) => {
-                                 return linear_extrude({ height: 10 },polygon(poly))
-                                                                        }))
-        
-        ,'test.stl');
+
+let i = 0;
+let polyObjs = polygons.map((poly) => {
+    i++;
+    console.info(`Working on ${i} poly of ${polygons.length}`);
+                                     return linear_extrude({ height: 10 },polygon(poly))});
+
+console.info('Union');
+let obj = union(polyObjs);
+console.info('Render');
+cad.renderFile(obj,'test.stl');
 
