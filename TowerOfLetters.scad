@@ -9,15 +9,15 @@ text_r = 50;
 
 stand_height = 10;
 
-$fn=10;
+$fn=100;
 
 _text_x = 6000; //This value must be calculated from actual text object!
-_pieces_per_circle = 24;
+_pieces_per_circle = $fn;
 _piece_len = 2*PI*text_r/_pieces_per_circle;
 _piece_count = floor(_text_x / _piece_len);
 _piece_rotate = 360/_pieces_per_circle;
 _layers_count = floor(_text_x / (2*PI*text_r));
-_render_text=false; //For debug
+_render_text=true; //For debug
 _stand_picture_deep = 1;
 echo("Text layers: ", _layers_count);
 echo("Text total height: ",_layers_count * text_height); 
