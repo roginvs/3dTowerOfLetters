@@ -62,7 +62,7 @@ module create_text() {
       };
       };
       translate([0,0,text_height - text_roof_up - text_roof_down])
-      cube([text_total_deep-text_backplane_deep,_text_x,text_roof_up + text_roof_down]);
+      cube([text_total_deep,_text_x,text_roof_up + text_roof_down]);
    // };
   //};
 };
