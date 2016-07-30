@@ -1,24 +1,23 @@
-content = "THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG";
+content = "ПРИШЛО ВРЕМЯ ПЕРЕУСТАНАВЛИВАТЬ ШINDOWS ШINDOWS САМ НЕ ПЕРЕУСТАНОВИТСЯ ПЕРЕУСТАНОВИ ЕГО ПЕРЕУСТАНОВИ ЕГО ЕЩЕ РАЗ ЗАЧЕМ МНЕ НУЖЕН LINUX У МЕНЯ НЕТ ВРЕМЕНИ ЧТОБЫ ЕБАТЬСЯ С НИМ ЛУЧШЕ ЕЩЕ РАЗ ПЕРЕУСТАНОВИТЬ ШINDOWS Я ПЕРЕУСТАНАВЛИВАЮ ШINDOWS ПО 3 РАЗА В ДЕНЬ КАЖДАЯ ПЕРЕУСТАНОВКА ЗАНИМАЕТ ДВАДЦАДЬ МИНУТ Я ЖИВУ АКТИВНОЙ И ПОЛНОЦЕННОЙ ЖИЗНЬЮ Я УСПЕШЕН И ПОЭТОМУ ЦЕЛЫЙ ДЕНЬ ИГРАЮ В ИГРЫ А ПОСЛЕ ЭТОГО ПЕРЕУСТАНАВЛИВАЮ ШINDOWS ТУПЫЕ ЛИНУКСОИДЫ ОДЕРЖИМЫ КОМПИЛЯЦИЕЙ ВЕДРА А Я СВОБОДНЫЙ ОТ ЗАДРОТСТВО ЧЕЛОВЕК СКОЧАТЬ БЕЗПЛАТНО И БЕЗ РЕГИСТРАЦИИ МОКРЫЕ ПИСЕЧКИ КРЯК УЛЬТИМАТ КЕЙГЕН РАЗБЛОКИРУЙ ВЕНДУ ЛУЧШЕ Я ПЕРЕУСТАНОВЛЮ ЕЩЕ РАЗ ШINDOWS И КРЯКНУ ЕЕ, СТАБИЛЬНОСТЬ НЕ НУЖНАЯ НЕ ПЕРЕУСТАНАВЛИВАЛ ШINDOWS НЕДЕЛЮ ПОЙДУ ПЕРЕУСТАНОВЛЮ В ШINDOWSE ВСЕ ПРОСТО И ПОНЯТНО ААААААААААА ОШИБКА STOP 0x00000001 ЭТО ЖЕ ОЧЕВИДНО КАК ЕЕ РЕШИТЬ ПРИШЛО ВРЕМЯ ПЕРЕУСТАНАВИТЬ ШINDOWS ККОКОКОКОКОКОКО ЖМУ/ПИНУС ШВАБОДКА ПИТУХИ КОКОКОКОКОКОКО КОКОКОКОКОКОКО";
 font = "Liberation Sans:style=Bold";
 text_total_deep = 3;
-text_backplane_deep = 1;
-text_height = 7;
+text_backplane_deep = 0;
+text_height = 8;
 text_roof_up = 1;
-text_roof_down = 0.5;
+text_roof_down = 1;
 text_r = 50;
 
-stand_height = 10;
+stand_height = 6;
 
-$fn=100;
 
-_text_x = 6000; //This value must be calculated from actual text object!
-_pieces_per_circle = $fn;
+_text_x = 6400; //This value should be calculated from actual text object!
+_pieces_per_circle = 100;
 _piece_len = 2*PI*text_r/_pieces_per_circle;
 _piece_count = floor(_text_x / _piece_len);
 _piece_rotate = 360/_pieces_per_circle;
 _layers_count = floor(_text_x / (2*PI*text_r));
-_render_text=true; //For debug
 _stand_picture_deep = 1;
+
 echo("Text layers: ", _layers_count);
 echo("Text total height: ",_layers_count * text_height); 
 module wrap_text() {
@@ -54,21 +53,20 @@ module wrap_text() {
 module create_text() { 
   echo ("Creating text in line");
   render() 
-  union() {
-    cube([text_backplane_deep,_text_x,text_height]);
-    translate([text_backplane_deep,0,0])
-    union() {    
-      if (_render_text) { 
-      rotate (90,[0,1,0])
-      linear_extrude(height = text_total_deep-text_backplane_deep) {
-        rotate(90,[0,0,1])
-        text(content, font = font, 
-        size = text_height - text_roof_up);
-      };
-      };
-      translate([0,0,text_height - text_roof_up - text_roof_down])
-      cube([text_total_deep,_text_x,text_roof_up + text_roof_down]);
+  translate([text_backplane_deep,0,0])
+  union() {    
+    rotate (90,[0,1,0])
+    linear_extrude(height = text_total_deep-text_backplane_deep) {
+      rotate(90,[0,0,1])
+      text(content, font = font, 
+      size = text_height - text_roof_up);
     };
+
+    translate([0,0,text_height - text_roof_up - text_roof_down])
+    cube([text_total_deep-text_backplane_deep,_text_x,text_roof_up + text_roof_down]);
+
+    translate([-text_backplane_deep,0,0])
+    cube([text_backplane_deep,_text_x,text_height]);
   };
 };
 
@@ -81,16 +79,23 @@ module create_stand() {
     
     translate([0,0,stand_height-_stand_picture_deep])
     mirror([0,0,1])
-    scale([0.15,0.15,0.1*_stand_picture_deep])  // 0.15 because of png file    
-    surface(file="stand.png", center=true,
+    scale([0.3,0.3,0.1*_stand_picture_deep])  // 0.3 because of png file size=200x200px
+    surface(file="fffuuu.png", center=true,
     invert=true);
   }
 }
 
+
+/*
+// This part is for searching text length == _text_x variable
+translate([0,-_text_x,0])
+create_text();
+*/
+
 union() {
   create_stand();
-    
+
   wrap_text()
     create_text();
-}
-   
+};
+
