@@ -4,7 +4,7 @@ text_total_deep = 3;
 text_backplane_deep = 0;
 text_height = 8;
 text_roof_up = 1;
-text_roof_down = 1;
+text_roof_down = 0.5;
 text_r = 50;
 
 stand_height = 6;
@@ -91,6 +91,7 @@ translate([0,-_text_x,0])
 create_text();
 */
 
+// Main block, comment it when searching for _text_x variable value
 union() {
   create_stand();
 
