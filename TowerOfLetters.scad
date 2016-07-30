@@ -1,4 +1,4 @@
-content = "1234567890";
+content = "THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG //// THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG";
 font = "Liberation Sans:style=Bold";
 text_total_deep = 3;
 text_backplane_deep = 1;
@@ -7,9 +7,10 @@ text_roof_up = 1;
 text_roof_down = 0.5;
 text_r = 50;
 
+
 $fn=10;
 
-_text_x = 4000; //This value must be calculated from actual text object!
+_text_x = 6000; //This value must be calculated from actual text object!
 _pieces_per_circle = 24;
 _piece_len = 2*PI*text_r/_pieces_per_circle;
 _piece_count = floor(_text_x / _piece_len);
@@ -17,6 +18,7 @@ _piece_rotate = 360/_pieces_per_circle;
 _layers_count = floor(_text_x / (2*PI*text_r));
 _render_text=true; //For debug
 echo("Text layers: ", _layers_count);
+echo("Text total height: ",_layers_count * text_height); 
 module wrap_text() {
   intersection() {
     translate([-text_r,-text_r,0])
@@ -47,10 +49,10 @@ module wrap_text() {
 
 module create_text() { 
   render() 
-  union() {
+  //union() {
     cube([text_backplane_deep,_text_x,text_height]);
     translate([text_backplane_deep,0,0])
-    union() {    
+//    union() {    
       if (_render_text) { 
       rotate (90,[0,1,0])
       linear_extrude(height = text_total_deep-text_backplane_deep) {
@@ -61,9 +63,10 @@ module create_text() {
       };
       translate([0,0,text_height - text_roof_up - text_roof_down])
       cube([text_total_deep-text_backplane_deep,_text_x,text_roof_up + text_roof_down]);
-    };
-  };
+   // };
+  //};
 };
 
 // wrap_text()
+translate([0,-_text_x,0]) // For debug 
 create_text();
