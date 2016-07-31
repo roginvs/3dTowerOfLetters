@@ -10,7 +10,7 @@ text_r = 50;
 stand_height = 6;
 
 
-_text_x = 6400; //This value should be calculated from actual text object!
+_text_x = 5600; //This value should be calculated from actual text object!
 _pieces_per_circle = 100;
 _piece_len = 2*PI*text_r/_pieces_per_circle;
 _piece_count = floor(_text_x / _piece_len);
@@ -92,10 +92,11 @@ create_text();
 */
 
 // Main block, comment it when searching for _text_x variable value
+// /*
 union() {
   create_stand();
 
   wrap_text()
     create_text();
 };
-
+// */
