@@ -1,4 +1,6 @@
 content = "ПРИШЛО ВРЕМЯ ПЕРЕУСТАНАВЛИВАТЬ ШINDOWS ШINDOWS САМ НЕ ПЕРЕУСТАНОВИТСЯ ПЕРЕУСТАНОВИ ЕГО ПЕРЕУСТАНОВИ ЕГО ЕЩЕ РАЗ ЗАЧЕМ МНЕ НУЖЕН LINUX У МЕНЯ НЕТ ВРЕМЕНИ ЧТОБЫ ЕБАТЬСЯ С НИМ ЛУЧШЕ ЕЩЕ РАЗ ПЕРЕУСТАНОВИТЬ ШINDOWS Я ПЕРЕУСТАНАВЛИВАЮ ШINDOWS ПО 3 РАЗА В ДЕНЬ КАЖДАЯ ПЕРЕУСТАНОВКА ЗАНИМАЕТ ДВАДЦАДЬ МИНУТ Я ЖИВУ АКТИВНОЙ И ПОЛНОЦЕННОЙ ЖИЗНЬЮ Я УСПЕШЕН И ПОЭТОМУ ЦЕЛЫЙ ДЕНЬ ИГРАЮ В ИГРЫ А ПОСЛЕ ЭТОГО ПЕРЕУСТАНАВЛИВАЮ ШINDOWS ТУПЫЕ ЛИНУКСОИДЫ ОДЕРЖИМЫ КОМПИЛЯЦИЕЙ ВЕДРА А Я СВОБОДНЫЙ ОТ ЗАДРОТСТВО ЧЕЛОВЕК СКОЧАТЬ БЕЗПЛАТНО И БЕЗ РЕГИСТРАЦИИ МОКРЫЕ ПИСЕЧКИ КРЯК УЛЬТИМАТ КЕЙГЕН РАЗБЛОКИРУЙ ВЕНДУ ЛУЧШЕ Я ПЕРЕУСТАНОВЛЮ ЕЩЕ РАЗ ШINDOWS И КРЯКНУ ЕЕ, СТАБИЛЬНОСТЬ НЕ НУЖНАЯ НЕ ПЕРЕУСТАНАВЛИВАЛ ШINDOWS НЕДЕЛЮ ПОЙДУ ПЕРЕУСТАНОВЛЮ В ШINDOWSE ВСЕ ПРОСТО И ПОНЯТНО ААААААААААА ОШИБКА STOP 0x00000001 ЭТО ЖЕ ОЧЕВИДНО КАК ЕЕ РЕШИТЬ ПРИШЛО ВРЕМЯ ПЕРЕУСТАНАВИТЬ ШINDOWS ККОКОКОКОКОКОКО ЖМУ/ПИНУС ШВАБОДКА ПИТУХИ КОКОКОКОКОКОКО КОКОКОКОКОКОКО";
+content_spiral_length = 5600;
+
 font = "Liberation Sans:style=Bold";
 text_total_deep = 3;
 text_backplane_deep = 0;
@@ -10,12 +12,11 @@ text_r = 50;
 stand_height = 6;
 
 
-_text_x = 5600; //This value should be calculated from actual text object!
 _pieces_per_circle = 100;
 _piece_len = 2*PI*text_r/_pieces_per_circle;
-_piece_count = floor(_text_x / _piece_len);
+_piece_count = floor(content_spiral_length / _piece_len);
 _piece_rotate = 360/_pieces_per_circle;
-_layers_count = floor(_text_x / (2*PI*text_r));
+_layers_count = floor(content_spiral_length / (2*PI*text_r));
 _stand_picture_deep = 1;
 
 $fa=1;
@@ -65,10 +66,10 @@ module create_text() {
     };
 
     translate([0,0,text_height - text_roof_up - text_roof_down])
-    cube([text_total_deep-text_backplane_deep,_text_x,text_roof_up + text_roof_down]);
+    cube([text_total_deep-text_backplane_deep,content_spiral_length,text_roof_up + text_roof_down]);
 
     translate([-text_backplane_deep,0,0])
-    cube([text_backplane_deep,_text_x,text_height]);
+    cube([text_backplane_deep,content_spiral_length,text_height]);
   };
 };
 
@@ -89,12 +90,12 @@ module create_stand() {
 
 
 /*
-// This part is for searching text length == _text_x variable
-translate([0,-_text_x,0])
+// This part is for searching text length == content_spiral_length variable
+translate([0,-content_spiral_length,0])
 create_text();
 */
 
-// Main block, comment it when searching for _text_x variable value
+// Main block, comment it when searching for content_spiral_length variable value
 // /*
 union() {
   create_stand();
