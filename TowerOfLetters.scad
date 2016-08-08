@@ -4,10 +4,10 @@ content_spiral_length = 5600;
 font = "Liberation Sans:style=Bold";
 text_total_deep = 3;
 text_backplane_deep = 0;
-text_height = 8;
+content_spiral_height = 8;
 text_roof_up = 1;
 text_roof_down = 0.5;
-text_r = 50;
+text_r = 41;
 
 stand_height = 6;
 
@@ -23,15 +23,15 @@ $fa=1;
 $fs=0.1;
 
 echo("Text layers: ", _layers_count);
-echo("Text total height: ",_layers_count * text_height); 
+echo("Text total height: ",_layers_count * content_spiral_height); 
 module wrap_text() {
   echo ("Wrapping text");
   translate([0,0,stand_height])
   intersection() {
     translate([-text_r,-text_r,0])
-    cube([2*text_r,2*text_r,_layers_count*text_height]);
+    cube([2*text_r,2*text_r,_layers_count*content_spiral_height]);
       
-    translate([0,0,(_layers_count-1)*text_height])
+    translate([0,0,(_layers_count-1)*content_spiral_height])
    // render()
     union() {
       for (step = [0:_piece_count]) {
@@ -41,13 +41,13 @@ module wrap_text() {
         translate([0,-step*_piece_len,0])
         intersection() {        
           translate([text_r-text_total_deep,0,0])  
-          rotate(-asin(text_height/(2*PI*text_r)),[1,0,0]) 
+          rotate(-asin(content_spiral_height/(2*PI*text_r)),[1,0,0]) 
           children();
             
           translate([0,step*_piece_len,0])
-          translate([0,0,text_height])
+          translate([0,0,content_spiral_height])
           mirror([0,0,1])          
-          cube([text_r,_piece_len,(_layers_count+2)*text_height]);
+          cube([text_r,_piece_len,(_layers_count+2)*content_spiral_height]);
         }
       };
     };
@@ -62,14 +62,14 @@ module create_text() {
     linear_extrude(height = text_total_deep-text_backplane_deep) {
       rotate(90,[0,0,1])
       text(content, font = font, 
-      size = text_height - text_roof_up);
+      size = content_spiral_height - text_roof_up);
     };
 
-    translate([0,0,text_height - text_roof_up - text_roof_down])
+    translate([0,0,content_spiral_height - text_roof_up - text_roof_down])
     cube([text_total_deep-text_backplane_deep,content_spiral_length,text_roof_up + text_roof_down]);
 
     translate([-text_backplane_deep,0,0])
-    cube([text_backplane_deep,content_spiral_length,text_height]);
+    cube([text_backplane_deep,content_spiral_length,content_spiral_height]);
   };
 };
 
