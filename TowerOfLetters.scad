@@ -1,5 +1,5 @@
 content = "ПРИШЛО ВРЕМЯ ПЕРЕУСТАНАВЛИВАТЬ ШINDOWS ШINDOWS САМ НЕ ПЕРЕУСТАНОВИТСЯ ПЕРЕУСТАНОВИ ЕГО ПЕРЕУСТАНОВИ ЕГО ЕЩЕ РАЗ ЗАЧЕМ МНЕ НУЖЕН LINUX У МЕНЯ НЕТ ВРЕМЕНИ ЧТОБЫ ЕБАТЬСЯ С НИМ ЛУЧШЕ ЕЩЕ РАЗ ПЕРЕУСТАНОВИТЬ ШINDOWS Я ПЕРЕУСТАНАВЛИВАЮ ШINDOWS ПО 3 РАЗА В ДЕНЬ КАЖДАЯ ПЕРЕУСТАНОВКА ЗАНИМАЕТ ДВАДЦАДЬ МИНУТ Я ЖИВУ АКТИВНОЙ И ПОЛНОЦЕННОЙ ЖИЗНЬЮ Я УСПЕШЕН И ПОЭТОМУ ЦЕЛЫЙ ДЕНЬ ИГРАЮ В ИГРЫ А ПОСЛЕ ЭТОГО ПЕРЕУСТАНАВЛИВАЮ ШINDOWS ТУПЫЕ ЛИНУКСОИДЫ ОДЕРЖИМЫ КОМПИЛЯЦИЕЙ ВЕДРА А Я СВОБОДНЫЙ ОТ ЗАДРОТСТВО ЧЕЛОВЕК СКОЧАТЬ БЕЗПЛАТНО И БЕЗ РЕГИСТРАЦИИ МОКРЫЕ ПИСЕЧКИ КРЯК УЛЬТИМАТ КЕЙГЕН РАЗБЛОКИРУЙ ВЕНДУ ЛУЧШЕ Я ПЕРЕУСТАНОВЛЮ ЕЩЕ РАЗ ШINDOWS И КРЯКНУ ЕЕ, СТАБИЛЬНОСТЬ НЕ НУЖНАЯ НЕ ПЕРЕУСТАНАВЛИВАЛ ШINDOWS НЕДЕЛЮ ПОЙДУ ПЕРЕУСТАНОВЛЮ В ШINDOWSE ВСЕ ПРОСТО И ПОНЯТНО ААААААААААА ОШИБКА STOP 0x00000001 ЭТО ЖЕ ОЧЕВИДНО КАК ЕЕ РЕШИТЬ ПРИШЛО ВРЕМЯ ПЕРЕУСТАНАВИТЬ ШINDOWS ККОКОКОКОКОКОКО ЖМУ/ПИНУС ШВАБОДКА ПИТУХИ КОКОКОКОКОКОКО КОКОКОКОКОКОКО";
-content_spiral_length = 5600;
+content_spiral_length = 3600;
 
 font = "Liberation Sans:style=Bold";
 text_total_deep = 3;
@@ -54,16 +54,21 @@ module wrap_text() {
   };
 };
 
-module create_text() { 
-  render() 
-  translate([text_backplane_deep,0,0])
-  union() {    
+module create_text_letters() {
+    resize([0,content_spiral_length,0])
     rotate (90,[0,1,0])
     linear_extrude(height = text_total_deep-text_backplane_deep) {
       rotate(90,[0,0,1])
       text(content, font = font, 
       size = content_spiral_height - text_roof_up);
-    };
+    }
+}
+
+module create_text() {
+  render()
+  translate([text_backplane_deep,0,0])
+  union() {
+    create_text_letters();
 
     translate([0,0,content_spiral_height - text_roof_up - text_roof_down])
     cube([text_total_deep-text_backplane_deep,content_spiral_length,text_roof_up + text_roof_down]);
@@ -89,18 +94,13 @@ module create_stand() {
 }
 
 
-/*
-// This part is for searching text length == content_spiral_length variable
-translate([0,-content_spiral_length,0])
-create_text();
-*/
+if (true) {  //Change this to false to check letters width
+  union() {
+    create_stand();
 
-// Main block, comment it when searching for content_spiral_length variable value
-// /*
-union() {
-  create_stand();
-
-  wrap_text()
-    create_text();
+    wrap_text()
+      create_text();
+  };
+} else {
+    create_text_letters();
 };
-// */
