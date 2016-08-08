@@ -14,9 +14,6 @@ Then, fix model with [netfabb](https://netfabb.azurewebsites.net) and slice with
 * To add a solidwall change text\_backplane\_deep=1
 
 # TODO
-* Stand is bad, need to add more faces to cylinder
-* Fix stand image, maybe to make image lines to be more bold.
-* Change 0x to 0X in text (maybe no need)
 * Check printing speed or small perimeters speed
 * Reduce diameter to 80 mm, maybe this will need to reduce letters height
 * Add a normal text
