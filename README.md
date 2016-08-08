@@ -10,10 +10,9 @@ Render proccess can easily take 24 hours or more.
 Then, fix model with [netfabb](https://netfabb.azurewebsites.net) and slice with Cura 15. I used Cura instead of Slic3r because Slic3r generates strange supports.
 
 # Customization
-* To change text change content variable in TowerOfLetters.scad AND ALSO \_text\_x. In perfect world _text_x can be calculated automatically, and, in theory, openscad can do this. Now we have to change it manually. This value must not be greater then generated sequence of letters. To check this value remove last block in scad file and uncomment a block before - you will see a long unwrapped text line with roof above it. This value controls length of this roof.
-* To add a solidwall change text\_backplane\_deep=1
+* To change the text change `content` variable in TowerOfLetters.scad. Generated text line is automatically resized to fit `content\_spiral
+_length` (in mm), so after changing the text you have to check that letters are not too wide or narrow. To check change 'true' to 'false' in the only 'if' and look at generated stl file. If something is wrong, then change `content` or `content\_spiral\_length` variables.
+* To add a solidwall change `text\_backplane\_deep=1`
 
 # TODO
-* Check printing speed or small perimeters speed
-* Reduce diameter to 80 mm, maybe this will need to reduce letters height
 * Add a normal text
