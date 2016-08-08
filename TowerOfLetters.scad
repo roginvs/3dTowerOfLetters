@@ -18,6 +18,9 @@ _piece_rotate = 360/_pieces_per_circle;
 _layers_count = floor(_text_x / (2*PI*text_r));
 _stand_picture_deep = 1;
 
+$fa=1;
+$fs=0.1;
+
 echo("Text layers: ", _layers_count);
 echo("Text total height: ",_layers_count * text_height); 
 module wrap_text() {
@@ -78,7 +81,7 @@ module create_stand() {
     
     translate([0,0,stand_height-_stand_picture_deep])
     mirror([0,0,1])
-    scale([0.3,0.3,0.1*_stand_picture_deep])  // 0.3 because of png file size=200x200px
+    scale([0.3,0.3,0.01*_stand_picture_deep])  // 0.3 because of png file size=200x200px
     surface(file="fffuuu.png", center=true,
     invert=true);
   }
