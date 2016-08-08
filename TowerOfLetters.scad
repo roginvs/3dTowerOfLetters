@@ -27,7 +27,7 @@ echo("Text total height: ",_layers_count * content_spiral_height);
 echo("Overall height (text + stand): ", _layers_count * content_spiral_height + stand_height);
 _totaly_invisible_spiral_length = content_spiral_length - _layers_count*(2*PI*text_r);
 echo("Totaly invisible text length ",_totaly_invisible_spiral_length);
-if (_totaly_invisible_spiral_length > PI*text_r/20000) {
+if (_totaly_invisible_spiral_length > PI*text_r/2) {
  echo ("WARNING: Totaly invisible text length is quite big, consider to reduce content_spiral_length variable by this amount");
 };
 echo("Usually rendering process takes about 24 hours and about 2.5Gb memory. Keep me running and see you tomorrow!");
