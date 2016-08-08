@@ -1,5 +1,5 @@
 content = "ПРИШЛО ВРЕМЯ ПЕРЕУСТАНАВЛИВАТЬ ШINDOWS ШINDOWS САМ НЕ ПЕРЕУСТАНОВИТСЯ ПЕРЕУСТАНОВИ ЕГО ПЕРЕУСТАНОВИ ЕГО ЕЩЕ РАЗ ЗАЧЕМ МНЕ НУЖЕН LINUX У МЕНЯ НЕТ ВРЕМЕНИ ЧТОБЫ ЕБАТЬСЯ С НИМ ЛУЧШЕ ЕЩЕ РАЗ ПЕРЕУСТАНОВИТЬ ШINDOWS Я ПЕРЕУСТАНАВЛИВАЮ ШINDOWS ПО 3 РАЗА В ДЕНЬ КАЖДАЯ ПЕРЕУСТАНОВКА ЗАНИМАЕТ ДВАДЦАДЬ МИНУТ Я ЖИВУ АКТИВНОЙ И ПОЛНОЦЕННОЙ ЖИЗНЬЮ Я УСПЕШЕН И ПОЭТОМУ ЦЕЛЫЙ ДЕНЬ ИГРАЮ В ИГРЫ А ПОСЛЕ ЭТОГО ПЕРЕУСТАНАВЛИВАЮ ШINDOWS ТУПЫЕ ЛИНУКСОИДЫ ОДЕРЖИМЫ КОМПИЛЯЦИЕЙ ВЕДРА А Я СВОБОДНЫЙ ОТ ЗАДРОТСТВО ЧЕЛОВЕК СКОЧАТЬ БЕЗПЛАТНО И БЕЗ РЕГИСТРАЦИИ МОКРЫЕ ПИСЕЧКИ КРЯК УЛЬТИМАТ КЕЙГЕН РАЗБЛОКИРУЙ ВЕНДУ ЛУЧШЕ Я ПЕРЕУСТАНОВЛЮ ЕЩЕ РАЗ ШINDOWS И КРЯКНУ ЕЕ СТАБИЛЬНОСТЬ НЕ НУЖНАЯ НЕ ПЕРЕУСТАНАВЛИВАЛ ШINDOWS НЕДЕЛЮ ПОЙДУ ПЕРЕУСТАНОВЛЮ В ШINDOWSE ВСЕ ПРОСТО И ПОНЯТНО ААААААААААА ОШИБКА STOP 0x00000001 ЭТО ЖЕ ОЧЕВИДНО КАК ЕЕ РЕШИТЬ ПРИШЛО ВРЕМЯ ПЕРЕУСТАНАВИТЬ ШINDOWS ККОКОКОКОКОКОКО ЖМУ/ПИНУС ШВАБОДКА ПИТУХИ КОКОКОКОКОКОКО КОКОКОКОКОКОКО";
-content_spiral_length = 3600;
+content_spiral_length = 3600-251;
 
 font = "Liberation Sans:style=Bold";
 text_total_deep = 3;
@@ -24,8 +24,15 @@ $fs=0.1;
 
 echo("Text layers: ", _layers_count);
 echo("Text total height: ",_layers_count * content_spiral_height); 
+echo("Overall height (text + stand): ", _layers_count * content_spiral_height + stand_height);
+_totaly_invisible_spiral_length = content_spiral_length - _layers_count*(2*PI*text_r);
+echo("Totaly invisible text length ",_totaly_invisible_spiral_length);
+if (_totaly_invisible_spiral_length > PI*text_r/20000) {
+ echo ("WARNING: Totaly invisible text length is quite big, consider to reduce content_spiral_length variable by this amount");
+};
+echo("Usually rendering process takes about 24 hours and about 2.5Gb memory. Keep me running and see you tomorrow!");
+
 module wrap_text() {
-  echo ("Wrapping text");
   translate([0,0,stand_height])
   intersection() {
     translate([-text_r,-text_r,0])
@@ -79,7 +86,6 @@ module create_text() {
 };
 
 module create_stand() {
-  echo ("Creating stand");
   difference() {
     translate([0,0,stand_height/2])
     cylinder(h = stand_height, 
