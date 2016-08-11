@@ -17,3 +17,4 @@ Then, fix model with [netfabb](https://netfabb.azurewebsites.net) and slice with
 
 # TODO
 * Add a normal text
+* Add a resize on image surface instead of static scale factor (`resize([2*text_r,2*text_r,_stand_picture_deep])` + add margin on image itself)
