@@ -1,7 +1,7 @@
 # 3dTowerOfLetters
 Openscad file for generating 3d (stl) model of pencil holder with letters wrapped around. Was inspired by 'Tower of Pi' from Thingiverse
 
-![Photo](blob/master/IMG_5811.JPG?raw=true "Photo")
+![Photo](IMG_5811.JPG?raw=true "Photo")
 
 # Render
 ```bash
